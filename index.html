@@ -3,31 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vitamins & Supplements</title>
+    <title>Vitamins & Supplements Manager</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E💊%3C/text%3E%3C/svg%3E">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #ffffff;
             color: #1f2937;
-            padding: 0;
-            margin: 0;
-            line-height: 1.6;
-            transition: background 0.3s ease, color 0.3s ease;
             height: 100vh;
             overflow: hidden;
         }
-
-        body.dark-mode {
-            background: #1a1a1a;
-            color: #e5e7eb;
-        }
-
+        
+        body.dark-mode { background: #1a1a1a; color: #e5e7eb; }
+        
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -35,90 +25,63 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden;
         }
-
+        
         header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 0.625rem 1rem;
             margin-bottom: 1rem;
             display: flex;
-            justify-content: flex-start;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 1rem;
-            flex-shrink: 0;
-            padding: 0.625rem 1rem;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            flex-wrap: nowrap;
-        }
-
-        body.dark-mode header {
-            background: #2d2d2d;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .header-left {
-            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            flex-shrink: 0;
         }
-
+        
+        body.dark-mode header { background: #2d2d2d; }
+        
+        h1 { font-size: 1.125rem; font-weight: 600; }
+        
         .header-center {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             flex: 1;
+            display: flex;
+            gap: 0.5rem;
             max-width: 600px;
             margin: 0 auto;
-            min-width: 0;
+            min-width: 200px;
         }
-
-        .fab {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: rgba(17, 24, 39, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        
+        .compact-search { flex: 1; display: flex; gap: 0.5rem; }
+        
+        .compact-search input {
+            flex: 1;
+            padding: 0.45rem 0.625rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background: #f9fafb;
+            outline: none;
+        }
+        
+        body.dark-mode .compact-search input {
+            background: #1a1a1a;
+            border-color: #404040;
+            color: #e5e7eb;
+        }
+        
+        .search-sites-btn {
+            padding: 0.45rem 0.75rem;
+            background: #111827;
             color: white;
             border: none;
-            font-size: 1.5rem;
+            border-radius: 6px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            z-index: 100;
+            white-space: nowrap;
         }
-
-        .fab:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-            background: rgba(17, 24, 39, 1);
-        }
-
-        body.dark-mode .fab {
-            background: rgba(255, 255, 255, 0.9);
-            color: #111827;
-        }
-
-        body.dark-mode .fab:hover {
-            background: rgba(255, 255, 255, 1);
-        }
-
-        .toggle-group {
-            display: flex;
-            gap: 0.5rem;
-        }
-
+        
+        .search-sites-btn:disabled { background: #9ca3af; }
+        body.dark-mode .search-sites-btn { background: #fff; color: #111827; }
+        
         .toggle-btn {
             width: 32px;
             height: 32px;
@@ -130,145 +93,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
         }
-
-        .toggle-btn:hover {
-            background: rgba(0, 0, 0, 0.05);
-            color: #374151;
-        }
-
-        .toggle-btn.active {
-            background: rgba(17, 24, 39, 0.1);
-            color: #111827;
-        }
-
-        body.dark-mode .toggle-btn {
-            background: transparent;
-            color: #9ca3af;
-        }
-
-        body.dark-mode .toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #e5e7eb;
-        }
-
-        body.dark-mode .toggle-btn.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-        }
-
-        h1 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #111827;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-        }
-
-        body.dark-mode h1 {
-            color: #ffffff;
-        }
-
-        .title-input {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #111827;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            padding: 0.25rem 0.5rem;
-            outline: none;
-            background: #ffffff;
-            font-family: inherit;
-        }
-
-        body.dark-mode .title-input {
-            background: #2d2d2d;
-            border-color: #404040;
-            color: #ffffff;
-        }
-
-        .title-input:focus {
-            border-color: #6b7280;
-        }
-
-        body.dark-mode .title-input:focus {
-            border-color: #9ca3af;
-        }
-
-        .edit-title-btn {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            border: none;
-            background: transparent;
-            color: #9ca3af;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            transition: all 0.2s ease;
-        }
-
-        .edit-title-btn:hover {
-            background: rgba(0, 0, 0, 0.05);
-            color: #6b7280;
-        }
-
-        body.dark-mode .edit-title-btn {
-            background: transparent;
-            color: #6b7280;
-        }
-
-        body.dark-mode .edit-title-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #9ca3af;
-        }
-
-        .add-btn {
-            display: none;
-        }
-
-        .export-btn {
-            width: 32px;
-            height: 32px;
-            font-size: 0.95rem;
-            background: transparent;
-            color: #6b7280;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .export-btn:hover {
-            background: rgba(0, 0, 0, 0.05);
-            color: #374151;
-        }
-
-        body.dark-mode .export-btn {
-            background: transparent;
-            color: #9ca3af;
-        }
-
-        body.dark-mode .export-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #e5e7eb;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
+        
+        .toggle-btn.active { background: rgba(17,24,39,0.1); color: #111827; }
+        body.dark-mode .toggle-btn.active { background: rgba(255,255,255,0.15); color: #fff; }
+        
+        .dropdown { position: relative; }
         .dropdown-content {
             display: none;
             position: absolute;
@@ -277,641 +107,202 @@
             margin-top: 0.5rem;
             background: white;
             min-width: 160px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             border-radius: 6px;
             z-index: 1001;
-            overflow: hidden;
         }
-
-        body.dark-mode .dropdown-content {
-            background: #2d2d2d;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-        }
-
-        .dropdown-content.show {
-            display: block;
-        }
-
+        
+        body.dark-mode .dropdown-content { background: #2d2d2d; }
+        .dropdown-content.show { display: block; }
+        
         .dropdown-item {
             padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            color: #374151;
             cursor: pointer;
-            transition: background 0.15s ease;
             border: none;
             background: none;
             width: 100%;
             text-align: left;
+            color: inherit;
         }
-
-        .dropdown-item:hover {
-            background: #f3f4f6;
-        }
-
-        body.dark-mode .dropdown-item {
-            color: #e5e7eb;
-        }
-
-        body.dark-mode .dropdown-item:hover {
-            background: #3d3d3d;
-        }
-
-        .import-input {
-            display: none;
-        }
-
-        .compact-search {
-            flex: 1;
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            max-width: 100%;
-        }
-
-        .compact-search input {
-            flex: 1;
-            min-width: 120px;
-            padding: 0.45rem 0.625rem;
-            font-size: 0.8125rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            background: #f9fafb;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        body.dark-mode .compact-search input {
-            background: #1a1a1a;
-            border-color: #404040;
-            color: #e5e7eb;
-        }
-
-        .compact-search input:focus {
-            border-color: #6b7280;
-            background: #ffffff;
-        }
-
-        body.dark-mode .compact-search input:focus {
-            border-color: #9ca3af;
-            background: #2d2d2d;
-        }
-
-        .search-sites-btn {
-            padding: 0.45rem 0.75rem;
-            font-size: 0.8125rem;
-            background: #111827;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .search-sites-btn:hover {
-            background: #374151;
-        }
-
-        .search-sites-btn:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-        }
-
-        body.dark-mode .search-sites-btn {
-            background: #ffffff;
-            color: #111827;
-        }
-
-        body.dark-mode .search-sites-btn:hover {
-            background: #e5e7eb;
-        }
-
-        body.dark-mode .search-sites-btn:disabled {
-            background: #4b5563;
-            color: #9ca3af;
-        }
-
-        .enable-popups-btn {
-            width: 32px;
-            height: 32px;
-            font-size: 1rem;
-            background: transparent;
-            color: #10b981;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .enable-popups-btn:hover {
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .enable-popups-btn.success {
-            color: #6b7280;
-            cursor: default;
-        }
-
-        .enable-popups-btn svg {
-            transition: transform 0.2s ease;
-        }
-
-        .enable-popups-btn:hover svg {
-            transform: scale(1.1);
-        }
-
-        .enable-popups-btn.success svg {
-            opacity: 0.5;
-        }
-
-        body.dark-mode .enable-popups-btn {
-            background: transparent;
-            color: #10b981;
-        }
-
-        body.dark-mode .enable-popups-btn:hover {
-            background: rgba(16, 185, 129, 0.15);
-        }
-
-        body.dark-mode .enable-popups-btn.success {
-            color: #6b7280;
-        }
-
-        body.dark-mode .enable-popups-btn.success:hover {
-            background: transparent;
-        }
-
-        .bookmark-list-container {
-            flex: 1;
-            overflow-y: auto;
-            min-height: 0;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        body.dark-mode .bookmark-list-container {
-            background: #2d2d2d;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .bookmark-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            flex: 1;
-        }
-
+        
+        .dropdown-item:hover { background: #f3f4f6; }
+        body.dark-mode .dropdown-item:hover { background: #3d3d3d; }
+        
         .list-header {
             display: flex;
             align-items: center;
             padding: 0.5rem 0.75rem;
             background: #f9fafb;
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 0;
             gap: 0.75rem;
-            font-size: 0.8125rem;
-            font-weight: 500;
-            color: #6b7280;
-            position: sticky;
-            top: 0;
-            z-index: 10;
             border-bottom: 2px solid #e5e7eb;
         }
-
-        body.dark-mode .list-header {
-            background: #2d2d2d;
-            color: #9ca3af;
-            border-bottom-color: #404040;
-        }
-
+        
+        body.dark-mode .list-header { background: #2d2d2d; border-bottom-color: #404040; }
+        
         .header-search {
             flex: 1;
             padding: 0.4rem 0.625rem;
-            font-size: 0.8125rem;
             border: 1px solid #e5e7eb;
             border-radius: 6px;
-            background: #ffffff;
+            background: #fff;
             outline: none;
-            transition: border-color 0.2s ease;
-            min-width: 0;
         }
-
-        body.dark-mode .header-search {
-            background: #1a1a1a;
-            border-color: #404040;
-            color: #e5e7eb;
+        
+        body.dark-mode .header-search { background: #1a1a1a; border-color: #404040; color: #e5e7eb; }
+        
+        .bookmark-list-container {
+            flex: 1;
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-
-        .header-search:focus {
-            border-color: #6b7280;
-        }
-
-        body.dark-mode .header-search:focus {
-            border-color: #9ca3af;
-        }
-
-        .header-checkbox {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-        }
-
-        .header-checkbox.hidden {
-            opacity: 0;
-            pointer-events: none;
-            width: 0;
-        }
-
-        .header-icon {
-            width: 32px;
-        }
-
-        .header-content {
-            width: auto;
-            white-space: nowrap;
-            display: none;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .add-header-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            border: none;
-            background: transparent;
-            color: #6b7280;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.125rem;
-            transition: all 0.2s ease;
-        }
-
-        .add-header-btn:hover {
-            background: rgba(0, 0, 0, 0.05);
-            color: #111827;
-        }
-
-        body.dark-mode .add-header-btn {
-            background: transparent;
-            color: #9ca3af;
-        }
-
-        body.dark-mode .add-header-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-        }
-
-        .toggle-checkboxes-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            border: none;
-            background: transparent;
-            color: #6b7280;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .toggle-checkboxes-btn:hover {
-            background: rgba(0, 0, 0, 0.05);
-            color: #111827;
-        }
-
-        .toggle-checkboxes-btn.active {
-            background: rgba(17, 24, 39, 0.1);
-            color: #111827;
-        }
-
-        body.dark-mode .toggle-checkboxes-btn {
-            background: transparent;
-            color: #9ca3af;
-        }
-
-        body.dark-mode .toggle-checkboxes-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #e5e7eb;
-        }
-
-        body.dark-mode .toggle-checkboxes-btn.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-        }
-
-        .delete-selected-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            border: none;
-            background: transparent;
-            color: #ef4444;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            opacity: 0.5;
-        }
-
-        .delete-selected-btn.active {
-            opacity: 1;
-        }
-
-        .delete-selected-btn:hover:not(:disabled) {
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        .delete-selected-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.3;
-        }
-
-        body.dark-mode .delete-selected-btn {
-            color: #f87171;
-        }
-
-        body.dark-mode .delete-selected-btn:hover:not(:disabled) {
-            background: rgba(239, 68, 68, 0.15);
-        }
-
+        
+        body.dark-mode .bookmark-list-container { background: #2d2d2d; }
+        
         .bookmark-item {
             display: flex;
             align-items: center;
             padding: 0.625rem 0.75rem;
-            text-decoration: none;
-            color: inherit;
-            border-radius: 5px;
-            transition: background-color 0.15s ease;
-            position: relative;
             gap: 0.75rem;
-            group: bookmark;
-            cursor: grab;
-        }
-
-        .bookmark-checkbox {
-            width: 18px;
-            height: 18px;
             cursor: pointer;
-            flex-shrink: 0;
-            transition: opacity 0.2s ease, width 0.2s ease, margin 0.2s ease;
         }
-
-        .bookmark-checkbox.hidden {
-            opacity: 0;
-            pointer-events: none;
-            width: 0;
-            margin: 0;
-        }
-
-        .bookmark-item:active {
-            cursor: grabbing;
-        }
-
-        .bookmark-item.dragging {
-            opacity: 0.5;
-        }
-
-        .bookmark-item.drag-over {
-            border-top: 2px solid #111827;
-        }
-
-        body.dark-mode .bookmark-item.drag-over {
-            border-top: 2px solid #ffffff;
-        }
-
-        .bookmark-item:hover {
-            background-color: #f9fafb;
-        }
-
-        body.dark-mode .bookmark-item:hover {
-            background-color: #2d2d2d;
-        }
-
-        .bookmark-item:hover .delete-btn {
-            opacity: 1;
-        }
-
+        
+        .bookmark-item:hover { background: #f9fafb; }
+        body.dark-mode .bookmark-item:hover { background: #3d3d3d; }
+        
         .icon-box {
             width: 32px;
             height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bookmark-content { flex: 1; min-width: 0; }
+        .bookmark-title { font-weight: 500; }
+        .bookmark-url { font-size: 0.775rem; color: #6b7280; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        
+        .edit-btn, .delete-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .bookmark-item:hover .edit-btn,
+        .bookmark-item:hover .delete-btn { opacity: 1; }
+        
+        .edit-btn { color: #9ca3af; }
+        .delete-btn { color: #ef4444; font-size: 1rem; }
+        
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #111827;
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+        
+        body.dark-mode .fab { background: #fff; color: #111827; }
+        
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .modal.show { display: flex; }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        body.dark-mode .modal-content { background: #2d2d2d; }
+        
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-group input {
+            width: 100%;
+            padding: 0.625rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            outline: none;
+        }
+        
+        body.dark-mode .form-group input { background: #1a1a1a; border-color: #404040; color: #e5e7eb; }
+        
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+        .btn { padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
+        .btn-primary { background: #111827; color: white; }
+        .btn-secondary { background: #f3f4f6; color: #374151; }
+        
+        .success-message {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            background: transparent;
-            overflow: hidden;
-            cursor: grab;
+            display: none;
+            z-index: 2000;
         }
-
-        .icon-box:active {
-            cursor: grabbing;
-        }
-
-        .icon-box img {
-            width: 18px;
-            height: 18px;
-            object-fit: contain;
-        }
-
-        .bookmark-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .bookmark-title {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #111827;
-            margin-bottom: 0.125rem;
-        }
-
-        body.dark-mode .bookmark-title {
-            color: #f3f4f6;
-        }
-
-        .bookmark-url {
-            font-size: 0.775rem;
-            color: #6b7280;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        body.dark-mode .bookmark-url {
-            color: #9ca3af;
-        }
-
-        .delete-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: none;
-            background: transparent;
-            color: #ef4444;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: 300;
-            opacity: 0;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .delete-btn:hover {
-            background: transparent;
-            color: #dc2626;
-            transform: scale(1.15);
-        }
-
-        body.dark-mode .delete-btn {
-            color: #f87171;
-        }
-
-        body.dark-mode .delete-btn:hover {
-            color: #ef4444;
-        }
-
-        .edit-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: none;
-            background: transparent;
-            color: #9ca3af;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .edit-btn:hover {
-            background: transparent;
-            color: #6b7280;
-            transform: scale(1.15);
-        }
-
-        body.dark-mode .edit-btn {
-            color: #6b7280;
-        }
-
-        body.dark-mode .edit-btn:hover {
-            color: #9ca3af;
-        }
-
-        .bookmark-item:hover .delete-btn,
-        .bookmark-item:hover .edit-btn {
-            opacity: 1;
-        }
-
-        .bookmark-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
+        
+        .success-message.show { display: block; }
+        
         .preview {
             position: fixed;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(30px);
             border-radius: 16px;
             width: 380px;
             height: 450px;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                        visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             z-index: 1000;
-            overflow: hidden;
-            pointer-events: none;
-            transform: scale(0.95) translateY(-10px);
             display: flex;
             flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
-
-        @supports (backdrop-filter: blur(30px)) or (-webkit-backdrop-filter: blur(30px)) {
-            .preview {
-                background: rgba(255, 255, 255, 0.5);
-            }
-        }
-
-        @supports not ((backdrop-filter: blur(30px)) or (-webkit-backdrop-filter: blur(30px))) {
-            .preview {
-                background: rgba(255, 255, 255, 0.95);
-            }
-        }
-
-        .preview.show {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: scale(1) translateY(0);
-        }
-
-        body.dark-mode .preview {
-            background: rgba(20, 20, 20, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
-        }
-
-        @supports (backdrop-filter: blur(30px)) or (-webkit-backdrop-filter: blur(30px)) {
-            body.dark-mode .preview {
-                background: rgba(20, 20, 20, 0.5);
-            }
-        }
-
-        @supports not ((backdrop-filter: blur(30px)) or (-webkit-backdrop-filter: blur(30px))) {
-            body.dark-mode .preview {
-                background: rgba(30, 30, 30, 0.95);
-            }
-        }
-
+        
+        .preview.show { opacity: 1; visibility: visible; }
+        body.dark-mode .preview { background: rgba(20,20,20,0.5); }
+        
         .preview-header {
             padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             position: relative;
         }
-
-        body.dark-mode .preview-header {
-            background: linear-gradient(to bottom, rgba(60, 60, 60, 0.6), rgba(40, 40, 40, 0.2));
-            border-bottom-color: rgba(255, 255, 255, 0.1);
-        }
-
+        
         .preview-close {
             position: absolute;
             top: 0.625rem;
@@ -921,428 +312,92 @@
             border-radius: 50%;
             border: none;
             background: transparent;
-            color: rgba(0, 0, 0, 0.6);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-size: 1.1rem;
-            font-weight: 300;
-            transition: all 0.2s ease;
-            z-index: 10;
         }
-
-        .preview-close:hover {
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-            transform: scale(1.15);
-        }
-
-        body.dark-mode .preview-close {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        body.dark-mode .preview-close:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #f87171;
-        }
-
-        .preview-favicon {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-        }
-
-        .preview-title {
-            font-size: 0.8125rem;
-            font-weight: 600;
-            color: #111827;
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .preview-iframe-container {
-            width: 100%;
-            flex: 1;
-            min-height: 0;
-            background: #f9fafb;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .preview-error {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            padding: 2rem;
-            color: #6b7280;
-            font-size: 0.875rem;
-            display: none;
-            z-index: 5;
-        }
-
-        .preview-error.show {
-            display: block;
-        }
-
-        .preview-error-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.3;
-        }
-
-        body.dark-mode .preview-iframe-container {
-            background: #1a1a1a;
-        }
-
-        body.dark-mode .preview-error {
-            color: #9ca3af;
-        }
-
-        .preview-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .preview-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #9ca3af;
-            font-size: 0.8125rem;
-            display: block;
-            z-index: 10;
-            background: #f9fafb;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-        }
-
-        .no-results {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 0.875rem;
-            padding: 2rem 0;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        body.dark-mode .modal {
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode .modal-content {
-            background: #2d2d2d;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-shrink: 0;
-            margin-left: auto;
-        }
-
-        .popup-notice {
-            background: #fef3c7;
-            border: 1px solid #fbbf24;
-            color: #92400e;
-            padding: 0.625rem 0.875rem;
-            border-radius: 6px;
-            font-size: 0.8125rem;
-            margin-top: 0.75rem;
-            margin-bottom: 0.75rem;
-            display: none;
-            flex-shrink: 0;
-        }
-
-        body.dark-mode .popup-notice {
-            background: #451a03;
-            border-color: #92400e;
-            color: #fbbf24;
-        }
-
-        .popup-notice.show {
-            display: block;
-        }
-
-        .popup-notice strong {
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        .modal-header {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: #111827;
-        }
-
-        body.dark-mode .modal-header {
-            color: #f3f4f6;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        body.dark-mode .form-group label {
-            color: #d1d5db;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.625rem 0.875rem;
-            font-size: 0.9rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        body.dark-mode .form-group input {
-            background: #1a1a1a;
-            border-color: #404040;
-            color: #e5e7eb;
-        }
-
-        .form-group input:focus {
-            border-color: #6b7280;
-        }
-
-        body.dark-mode .form-group input:focus {
-            border-color: #9ca3af;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 0.75rem;
-            justify-content: flex-end;
-            margin-top: 1.5rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.2s ease;
-        }
-
-        .btn-primary {
-            background: #111827;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #374151;
-        }
-
-        .btn-secondary {
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .btn-secondary:hover {
-            background: #e5e7eb;
-        }
-
+        
+        .preview-iframe-container { flex: 1; background: #f9fafb; position: relative; }
+        .preview-iframe { width: 100%; height: 100%; border: none; }
+        
+        .hidden { opacity: 0; width: 0; pointer-events: none; }
+        
         @media (max-width: 1024px) {
-            header {
-                flex-wrap: wrap;
-            }
-
-            .header-center {
-                order: 3;
-                flex-basis: 100%;
-                max-width: 100%;
-                margin-top: 0.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                overflow: auto;
-            }
-
-            .container {
-                height: auto;
-                min-height: 100vh;
-            }
-
-            h1 {
-                font-size: 1rem;
-            }
-
-            header {
-                padding: 0.5rem 0.75rem;
-            }
-
-            .fab {
-                bottom: 1.5rem;
-                right: 1.5rem;
-                width: 52px;
-                height: 52px;
-            }
+            .header-center { order: 3; flex-basis: 100%; max-width: 100%; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="header-left">
-                <h1 id="pageTitle">Vitamins & Supplements</h1>
-                <button class="edit-title-btn" onclick="editTitle()" title="Edit Title">✎</button>
-            </div>
+            <h1>Vitamins & Supplements</h1>
             
             <div class="header-center">
                 <div class="compact-search">
                     <input type="text" id="siteSearchInput" placeholder="Search in selected sites...">
-                    <button class="search-sites-btn" id="searchSitesBtn" onclick="searchInSites()" disabled>
-                        Search Sites
-                    </button>
-                    <button class="enable-popups-btn" id="enablePopupsBtn" onclick="testPopups()" title="Enable Multi-Search">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                        </svg>
-                    </button>
+                    <button class="search-sites-btn" id="searchSitesBtn" onclick="searchInSites()" disabled>Search Sites</button>
+                    <button class="toggle-btn" id="enablePopupsBtn" onclick="testPopups()" title="Enable Multi-Search">🔲</button>
                 </div>
             </div>
             
-            <div class="header-right">
-                <div class="toggle-group">
-                    <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark Mode">
-                        ◐
-                    </button>
-                    <button class="toggle-btn active" id="previewToggle" onclick="togglePreview()" title="Toggle Preview">
-                        ◉
-                    </button>
-                </div>
+            <div style="display: flex; gap: 0.5rem; margin-left: auto;">
+                <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()">◐</button>
+                <button class="toggle-btn active" id="previewToggle" onclick="togglePreview()">◉</button>
                 <div class="dropdown">
-                    <button class="export-btn" onclick="toggleDropdown()" title="Export/Import">↓</button>
+                    <button class="toggle-btn" onclick="toggleDropdown()">↓</button>
                     <div class="dropdown-content" id="exportDropdown">
-                        <button class="dropdown-item" onclick="exportAsHTML()">↗ Export as HTML</button>
-                        <button class="dropdown-item" onclick="exportAsPDF()">↗ Export as PDF</button>
-                        <button class="dropdown-item" onclick="exportAsCSV()">↗ Export as CSV</button>
-                        <button class="dropdown-item" onclick="document.getElementById('importHTMLInput').click()">↙ Import HTML</button>
-                        <button class="dropdown-item" onclick="document.getElementById('importCSVInput').click()">↙ Import CSV</button>
+                        <button class="dropdown-item" onclick="exportAsHTML()">↗ Export HTML</button>
+                        <button class="dropdown-item" onclick="exportAsCSV()">↗ Export CSV</button>
+                        <button class="dropdown-item" onclick="document.getElementById('importHTML').click()">↙ Import HTML</button>
+                        <button class="dropdown-item" onclick="document.getElementById('importCSV').click()">↙ Import CSV</button>
                     </div>
                 </div>
             </div>
         </header>
 
-        <input type="file" id="importHTMLInput" class="import-input" accept=".html" onchange="importHTML(event)">
-        <input type="file" id="importCSVInput" class="import-input" accept=".csv" onchange="importCSV(event)">
-
-        <div class="popup-notice" id="popupNotice">
-            <strong>⚠️ Pop-ups blocked</strong>
-            Please click the address bar icon or browser notification to allow pop-ups for this page, then try again.
-        </div>
+        <input type="file" id="importHTML" style="display:none" accept=".html" onchange="importHTML(event)">
+        <input type="file" id="importCSV" style="display:none" accept=".csv" onchange="importCSV(event)">
 
         <div class="list-header">
-            <input type="checkbox" class="header-checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">
-            <button class="toggle-checkboxes-btn active" id="toggleCheckboxesBtn" onclick="toggleCheckboxes()" title="Toggle Checkboxes">
-                ☑
-            </button>
+            <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+            <button class="toggle-btn active" id="toggleCheckboxes" onclick="toggleCheckboxes()">☑</button>
             <input type="text" class="header-search" id="searchInput" placeholder="Filter bookmarks...">
-            <div class="header-content">Select All</div>
-            <div class="header-actions">
-                <button class="add-header-btn" onclick="openAddModal()" title="Add Bookmark">
-                    +
-                </button>
-                <button class="delete-selected-btn" id="deleteSelectedBtn" onclick="deleteSelected()" disabled title="Delete Selected">
-                    🗑
-                </button>
-            </div>
+            <button class="toggle-btn" onclick="openAddModal()">+</button>
+            <button class="toggle-btn" id="deleteBtn" onclick="deleteSelected()" disabled>🗑</button>
         </div>
-        <div class="bookmark-list-container">
-            <div class="bookmark-list" id="bookmarkList"></div>
 
-            <div class="no-results" id="noResults" style="display: none;">
-                No stores found matching your search.
-            </div>
+        <div class="bookmark-list-container">
+            <div id="bookmarkList"></div>
         </div>
         
-        <button class="fab" onclick="openAddModal()" title="Add Bookmark">
-            +
-        </button>
+        <button class="fab" onclick="openAddModal()">+</button>
     </div>
 
     <div class="preview" id="preview">
         <div class="preview-header">
-            <button class="preview-close" onclick="closePreview()" title="Close Preview">×</button>
-            <img id="previewFavicon" class="preview-favicon" src="" alt="icon">
-            <div id="previewTitle" class="preview-title"></div>
+            <button class="preview-close" onclick="closePreview()">×</button>
+            <img id="previewFavicon" width="20" height="20" src="" alt="">
+            <div id="previewTitle"></div>
         </div>
         <div class="preview-iframe-container">
-            <div class="preview-loading" id="previewLoading">Loading preview...</div>
-            <div class="preview-error" id="previewError">
-                <div class="preview-error-icon">🔒</div>
-                <div><strong>Preview Unavailable</strong></div>
-                <div style="margin-top: 0.5rem; font-size: 0.8rem;">This website blocks preview embedding for security.</div>
-                <div style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.7;">Click the bookmark to open in a new tab.</div>
-            </div>
-            <iframe id="previewIframe" class="preview-iframe" sandbox="allow-scripts"></iframe>
+            <iframe id="previewIframe" class="preview-iframe" sandbox="allow-scripts allow-same-origin"></iframe>
         </div>
     </div>
 
     <div class="modal" id="addModal">
         <div class="modal-content">
-            <div class="modal-header">Add New Bookmark</div>
-            <form id="addForm" onsubmit="addBookmark(event)">
+            <h2>Add Bookmark</h2>
+            <form onsubmit="addBookmark(event)">
                 <div class="form-group">
-                    <label for="bookmarkName">Name</label>
-                    <input type="text" id="bookmarkName" required placeholder="e.g., Super Supplements">
+                    <label>Name</label>
+                    <input type="text" id="bookmarkName" required>
                 </div>
                 <div class="form-group">
-                    <label for="bookmarkUrl">URL</label>
-                    <input type="url" id="bookmarkUrl" required placeholder="https://example.com">
+                    <label>URL</label>
+                    <input type="url" id="bookmarkUrl" required>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" onclick="closeAddModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Bookmark</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>
@@ -1350,757 +405,450 @@
 
     <div class="modal" id="editModal">
         <div class="modal-content">
-            <div class="modal-header">Edit Bookmark</div>
-            <form id="editForm" onsubmit="saveEdit(event)">
+            <h2>Edit Bookmark</h2>
+            <form onsubmit="saveEdit(event)">
                 <div class="form-group">
-                    <label for="editBookmarkName">Name</label>
-                    <input type="text" id="editBookmarkName" required>
+                    <label>Name</label>
+                    <input type="text" id="editName" required>
                 </div>
                 <div class="form-group">
-                    <label for="editBookmarkUrl">URL</label>
-                    <input type="url" id="editBookmarkUrl" required>
+                    <label>URL</label>
+                    <input type="url" id="editUrl" required>
                 </div>
                 <div class="form-group">
-                    <label for="editSearchPattern">Search Pattern</label>
-                    <input type="text" id="editSearchPattern" required placeholder="https://example.com/search?q={query}">
-                    <small style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem; display: block;">Use {query} as placeholder for search term</small>
+                    <label>Search Pattern</label>
+                    <input type="text" id="editPattern" required>
+                    <small style="color: #6b7280;">Use {query} as placeholder</small>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <div class="success-message" id="successMsg"></div>
+
     <script>
-        const defaultBookmarks = [
+        const defaults = [
             { name: "Organic Nation", url: "https://www.organicnationeg.com/", searchPattern: "https://www.organicnationeg.com/search?type=product&q={query}", checked: false },
             { name: "Right Nutritions", url: "https://rightnutritions.com/", searchPattern: "https://rightnutritions.com/?s={query}&post_type=product", checked: false },
             { name: "Mr. Vitamin Protein", url: "https://mr-vitaminseg.com/en/", searchPattern: "https://mr-vitaminseg.com/en/?s={query}&post_type=product", checked: false },
             { name: "Vitamins Online Shop", url: "https://vitaminonline.shop/", searchPattern: "https://vitaminonline.shop/?s={query}&post_type=product", checked: false },
             { name: "Maxmuscle Elite", url: "https://www.maxmuscleelite.com/", searchPattern: "https://www.maxmuscleelite.com/shop?search={query}", checked: false },
             { name: "GoFit", url: "https://gofit-eg.com/", searchPattern: "https://gofit-eg.com/?s={query}&post_type=product", checked: false },
-            { name: "Nabda Platform", url: "https://nabdaonline.com/en", searchPattern: "https://nabdaonline.co/search?q={query}&options%5Bprefix%5D=last&type=product", checked: false },
             { name: "iFit", url: "https://ifit-eg.com/", searchPattern: "https://ifit-eg.com/?s={query}&post_type=product", checked: false },
             { name: "Super Supplement", url: "https://super-eg.com/", searchPattern: "https://super-eg.com/?s={query}&post_type=product", checked: false },
             { name: "Hercules Supplements", url: "https://hsegy.com/", searchPattern: "https://hsegy.com/?s={query}&post_type=product", checked: false },
-            { name: "Healthy", url: "https://healthy-vitamin.net/", searchPattern: "https://healthy-vitamin.net/?s={query}&post_type=product", checked: false },
-            { name: "House Of Supplements", url: "https://houseofsupplements.com/", searchPattern: "https://houseofsupplements.com/search.php?search_query={query}&section=product", checked: false },
-            { name: "Wellness Store", url: "https://wellnessonline.store/shop", searchPattern: "https://wellnessonline.store/?s={query}&post_type=product", checked: false },
-            { name: "Dr Diamond", url: "https://drdiamond.store/?home", searchPattern: "https://drdiamond.store/?s={query}&post_type=product", checked: false },
-            { name: "GoSupps", url: "https://www.gosupps.com/ar-eg/", searchPattern: "https://www.gosupps.com/ar-eg/?s={query}&post_type=product", checked: false },
-            { name: "NBS Supplements", url: "https://www.nbs-supplements.com/", searchPattern: "https://www.nbs-supplements.com/?s={query}&post_type=product", checked: false },
-            { name: "Zahra EG", url: "https://zahraegypt.com/", searchPattern: "https://zahraegypt.com/pages/search/web/{query}", checked: false }
+            { name: "Healthy", url: "https://healthy-vitamin.net/", searchPattern: "https://healthy-vitamin.net/?s={query}&post_type=product", checked: false }
         ];
 
         let bookmarks = [];
-
-        const searchInput = document.getElementById('searchInput');
-        const siteSearchInput = document.getElementById('siteSearchInput');
-        const searchSitesBtn = document.getElementById('searchSitesBtn');
-        const bookmarkList = document.getElementById('bookmarkList');
-        const noResults = document.getElementById('noResults');
-        const preview = document.getElementById('preview');
-        const previewIframe = document.getElementById('previewIframe');
-        const previewTitle = document.getElementById('previewTitle');
-        const previewFavicon = document.getElementById('previewFavicon');
-        const previewLoading = document.getElementById('previewLoading');
-        const previewError = document.getElementById('previewError');
-        const addModal = document.getElementById('addModal');
-        const editModal = document.getElementById('editModal');
-
-        let hoverTimeout = null;
-        let currentPreviewUrl = null;
-        let previewEnabled = true;
-        let draggedElement = null;
-        let draggedIndex = null;
-        let pageTitle = 'Vitamins & Supplements';
-        let editingIndex = null;
-        let popupsEnabled = false;
         let checkboxesVisible = true;
-        let searchDebounceTimer = null;
+        let previewEnabled = true;
+        let editingIndex = null;
+        let previewTimeout = null;
+        let longPressTimer = null;
+        let touchStartTime = 0;
 
-        function validateUrl(url) {
-            try {
-                const urlObj = new URL(url);
-                return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
-            } catch (e) {
-                return false;
-            }
+        function save(key, val) {
+            try { localStorage.setItem(key, val); } catch(e) { console.error(e); }
+        }
+
+        function load(key, def = null) {
+            try { return localStorage.getItem(key) || def; } catch(e) { return def; }
+        }
+
+        function saveBookmarks() {
+            save('bookmarks', JSON.stringify(bookmarks));
+        }
+
+        function loadBookmarks() {
+            const saved = load('bookmarks');
+            bookmarks = saved ? JSON.parse(saved) : [...defaults];
+            if (bookmarks.length === 0) bookmarks = [...defaults];
+            saveBookmarks();
+            render();
+        }
+
+        function render() {
+            const list = document.getElementById('bookmarkList');
+            list.innerHTML = '';
+            
+            bookmarks.forEach((b, i) => {
+                const item = document.createElement('div');
+                item.className = 'bookmark-item';
+                
+                const domain = new URL(b.url).hostname;
+                
+                // Create checkbox
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = b.checked;
+                if (!checkboxesVisible) checkbox.classList.add('hidden');
+                checkbox.onchange = () => toggleCheck(i);
+                checkbox.onclick = (e) => e.stopPropagation();
+                
+                // Create icon
+                const iconBox = document.createElement('div');
+                iconBox.className = 'icon-box';
+                const img = document.createElement('img');
+                img.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+                img.width = 18;
+                img.height = 18;
+                iconBox.appendChild(img);
+                
+                // Create content
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'bookmark-content';
+                titleDiv.innerHTML = `
+                    <div class="bookmark-title">${b.name}</div>
+                    <div class="bookmark-url">${domain}</div>
+                `;
+                
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.textContent = '✎';
+                editBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    openEditModal(i);
+                };
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = '×';
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteBookmark(i);
+                };
+                
+                item.appendChild(checkbox);
+                item.appendChild(iconBox);
+                item.appendChild(titleDiv);
+                item.appendChild(editBtn);
+                item.appendChild(deleteBtn);
+                
+                // Click handler for desktop
+                item.onclick = (e) => {
+                    if (!e.target.closest('.edit-btn') && 
+                        !e.target.closest('.delete-btn') && 
+                        !e.target.closest('input[type="checkbox"]')) {
+                        window.open(b.url, '_blank');
+                    }
+                };
+                
+                // Desktop hover preview (only if enabled)
+                if (previewEnabled) {
+                    item.onmouseenter = (e) => {
+                        clearTimeout(previewTimeout);
+                        showPreview(b, e);
+                    };
+                    item.onmouseleave = () => {
+                        clearTimeout(previewTimeout);
+                        previewTimeout = setTimeout(() => {
+                            if (!document.getElementById('preview').dataset.hovering) {
+                                hidePreview();
+                            }
+                        }, 300);
+                    };
+                }
+                
+                // Mobile long-press preview (always enabled)
+                let touchMoved = false;
+                
+                item.addEventListener('touchstart', (e) => {
+                    // Don't trigger on buttons or checkboxes
+                    if (e.target.closest('.edit-btn') || 
+                        e.target.closest('.delete-btn') || 
+                        e.target.closest('input[type="checkbox"]')) {
+                        return;
+                    }
+                    
+                    touchMoved = false;
+                    touchStartTime = Date.now();
+                    
+                    longPressTimer = setTimeout(() => {
+                        console.log('Long press triggered!');
+                        showPreviewMobile(b, e.touches[0]);
+                    }, 500);
+                }, { passive: false });
+                
+                item.addEventListener('touchmove', () => {
+                    touchMoved = true;
+                    clearTimeout(longPressTimer);
+                }, { passive: true });
+                
+                item.addEventListener('touchend', (e) => {
+                    clearTimeout(longPressTimer);
+                    const pressDuration = Date.now() - touchStartTime;
+                    
+                    // If preview is showing, don't open link
+                    if (document.getElementById('preview').classList.contains('show')) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // If it was a quick tap (not long press) and didn't move, open link
+                    if (pressDuration < 500 && !touchMoved) {
+                        if (!e.target.closest('.edit-btn') && 
+                            !e.target.closest('.delete-btn') && 
+                            !e.target.closest('input[type="checkbox"]')) {
+                            e.preventDefault();
+                            window.open(b.url, '_blank');
+                        }
+                    }
+                }, { passive: false });
+                
+                list.appendChild(item);
+            });
+            
+            updateUI();
+        }
+
+        function updateUI() {
+            const checked = bookmarks.filter(b => b.checked).length;
+            document.getElementById('searchSitesBtn').disabled = checked === 0;
+            document.getElementById('searchSitesBtn').textContent = checked > 0 ? `Search ${checked} Site${checked > 1 ? 's' : ''}` : 'Search Sites';
+            document.getElementById('deleteBtn').disabled = checked === 0;
+            document.getElementById('selectAll').checked = bookmarks.length > 0 && bookmarks.every(b => b.checked);
+        }
+
+        function toggleCheck(i) {
+            bookmarks[i].checked = !bookmarks[i].checked;
+            saveBookmarks();
+            updateUI();
+        }
+
+        function toggleSelectAll() {
+            const checked = document.getElementById('selectAll').checked;
+            bookmarks.forEach(b => b.checked = checked);
+            saveBookmarks();
+            render();
         }
 
         function toggleCheckboxes() {
             checkboxesVisible = !checkboxesVisible;
-            const toggleBtn = document.getElementById('toggleCheckboxesBtn');
-            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-            const deleteBtn = document.getElementById('deleteSelectedBtn');
-            const allCheckboxes = document.querySelectorAll('.bookmark-checkbox');
-            
-            if (checkboxesVisible) {
-                toggleBtn.classList.add('active');
-                toggleBtn.textContent = '☑';
-                selectAllCheckbox.classList.remove('hidden');
-                deleteBtn.style.display = 'flex';
-                allCheckboxes.forEach(cb => cb.classList.remove('hidden'));
-            } else {
-                toggleBtn.classList.remove('active');
-                toggleBtn.textContent = '☐';
-                selectAllCheckbox.classList.add('hidden');
-                deleteBtn.style.display = 'none';
-                allCheckboxes.forEach(cb => cb.classList.add('hidden'));
-            }
-            
-            localStorage.setItem('checkboxesVisible', checkboxesVisible);
+            document.getElementById('toggleCheckboxes').textContent = checkboxesVisible ? '☑' : '☐';
+            document.getElementById('toggleCheckboxes').classList.toggle('active');
+            document.getElementById('selectAll').classList.toggle('hidden');
+            save('checkboxesVisible', checkboxesVisible);
+            render();
         }
 
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('themeToggle').textContent = isDark ? '◑' : '◐';
-            localStorage.setItem('darkMode', isDark);
-        }
-
-        function togglePreview() {
-            previewEnabled = !previewEnabled;
-            const toggleBtn = document.getElementById('previewToggle');
+        function searchInSites() {
+            const query = document.getElementById('siteSearchInput').value.trim();
+            if (!query) return alert('Please enter a search term');
             
-            if (previewEnabled) {
-                toggleBtn.classList.add('active');
-            } else {
-                toggleBtn.classList.remove('active');
-                preview.classList.remove('show');
-            }
+            const checked = bookmarks.filter(b => b.checked);
+            if (checked.length === 0) return alert('Please select at least one site');
             
-            localStorage.setItem('previewEnabled', previewEnabled);
-        }
-
-        function loadPreferences() {
-            const darkMode = localStorage.getItem('darkMode') === 'true';
-            const savedPreviewEnabled = localStorage.getItem('previewEnabled');
-            const savedTitle = localStorage.getItem('pageTitle');
-            const savedPopupsEnabled = localStorage.getItem('popupsEnabled') === 'true';
-            const savedCheckboxesVisible = localStorage.getItem('checkboxesVisible');
+            if (checked.length > 10 && !confirm(`Open ${checked.length} tabs?`)) return;
             
-            if (darkMode) {
-                document.body.classList.add('dark-mode');
-                document.getElementById('themeToggle').textContent = '◑';
-            }
-            
-            if (savedPreviewEnabled !== null) {
-                previewEnabled = savedPreviewEnabled === 'true';
-                const toggleBtn = document.getElementById('previewToggle');
-                if (!previewEnabled) {
-                    toggleBtn.classList.remove('active');
-                }
-            }
-
-            if (savedTitle) {
-                pageTitle = savedTitle;
-                document.getElementById('pageTitle').textContent = pageTitle;
-            }
-
-            if (savedPopupsEnabled) {
-                popupsEnabled = true;
-                updateEnableButton();
-            }
-
-            if (savedCheckboxesVisible !== null) {
-                checkboxesVisible = savedCheckboxesVisible === 'true';
-                if (!checkboxesVisible) {
-                    const toggleBtn = document.getElementById('toggleCheckboxesBtn');
-                    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-                    const deleteBtn = document.getElementById('deleteSelectedBtn');
-                    
-                    toggleBtn.classList.remove('active');
-                    toggleBtn.textContent = '☐';
-                    selectAllCheckbox.classList.add('hidden');
-                    deleteBtn.style.display = 'none';
-                }
-            }
-        }
-
-        function editTitle() {
-            const titleElement = document.getElementById('pageTitle');
-            const currentTitle = titleElement.textContent;
-            
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'title-input';
-            input.value = currentTitle;
-            
-            titleElement.replaceWith(input);
-            input.focus();
-            input.select();
-            
-            function saveTitle() {
-                const newTitle = input.value.trim() || 'Vitamins & Supplements';
-                pageTitle = newTitle;
-                localStorage.setItem('pageTitle', newTitle);
-                
-                const h1 = document.createElement('h1');
-                h1.id = 'pageTitle';
-                h1.textContent = newTitle;
-                input.replaceWith(h1);
-            }
-            
-            input.addEventListener('blur', saveTitle);
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    saveTitle();
-                } else if (e.key === 'Escape') {
-                    const h1 = document.createElement('h1');
-                    h1.id = 'pageTitle';
-                    h1.textContent = currentTitle;
-                    input.replaceWith(h1);
-                }
-            });
-        }
-
-        function loadBookmarks() {
-            const saved = localStorage.getItem('bookmarks');
-            
-            if (saved) {
-                // Load from localStorage if it exists
-                try {
-                    bookmarks = JSON.parse(saved);
-                } catch (e) {
-                    console.error('Error parsing saved bookmarks:', e);
-                    bookmarks = [...defaultBookmarks];
-                }
-                
-                const knownPatterns = {
-                    'Organic Nation': 'https://www.organicnationeg.com/search?type=product&q={query}',
-                    'Maxmuscle Elite': 'https://www.maxmuscleelite.com/shop?search={query}',
-                    'Right Nutritions': 'https://rightnutritions.com/?s={query}&post_type=product',
-                    'Mr. Vitamin Protein': 'https://mr-vitaminseg.com/en/?s={query}&post_type=product',
-                    'Vitamins Online Shop': 'https://vitaminonline.shop/?s={query}&post_type=product',
-                    'GoFit': 'https://gofit-eg.com/?s={query}&post_type=product',
-                    'Nabda Platform': 'https://nabdaonline.co/search?q={query}&options%5Bprefix%5D=last&type=product',
-                    'iFit': 'https://ifit-eg.com/?s={query}&post_type=product',
-                    'Super Supplement': 'https://super-eg.com/?s={query}&post_type=product',
-                    'Hercules Supplements': 'https://hsegy.com/?s={query}&post_type=product',
-                    'Healthy': 'https://healthy-vitamin.net/?s={query}&post_type=product',
-                    'House Of Supplements': 'https://houseofsupplements.com/search.php?search_query={query}&section=product',
-                    'Wellness Store': 'https://wellnessonline.store/?s={query}&post_type=product',
-                    'Dr Diamond': 'https://drdiamond.store/?s={query}&post_type=product',
-                    'GoSupps': 'https://www.gosupps.com/ar-eg/?s={query}&post_type=product',
-                    'NBS Supplements': 'https://www.nbs-supplements.com/?s={query}&post_type=product',
-                    'Zahra EG': 'https://zahraegypt.com/pages/search/web/{query}'
-                };
-                
-                // Update existing bookmarks with correct search patterns
-                bookmarks = bookmarks.map(bookmark => {
-                    if (knownPatterns[bookmark.name]) {
-                        bookmark.searchPattern = knownPatterns[bookmark.name];
-                    } else if (!bookmark.searchPattern) {
-                        const url = bookmark.url;
-                        bookmark.searchPattern = url + (url.includes('?') ? '&' : '?') + 's={query}&post_type=product';
-                    }
-                    
-                    if (bookmark.checked === undefined) {
-                        bookmark.checked = false;
-                    }
-                    return bookmark;
-                });
-                
-                saveBookmarks();
-            } else {
-                // First visit - use default bookmarks
-                bookmarks = [...defaultBookmarks];
-                saveBookmarks();
-            }
-            
-            renderBookmarks();
-        }
-
-        function saveBookmarks() {
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-        }
-
-        function renderBookmarks() {
-            bookmarkList.innerHTML = '';
-            bookmarks.forEach((bookmark, index) => {
-                const domain = new URL(bookmark.url).hostname;
-                const item = document.createElement('div');
-                item.className = 'bookmark-item';
-                item.dataset.name = bookmark.name;
-                item.dataset.index = index;
-                item.draggable = true;
-                item.innerHTML = `
-                    <input type="checkbox" class="bookmark-checkbox${!checkboxesVisible ? ' hidden' : ''}" ${bookmark.checked ? 'checked' : ''} 
-                           onchange="toggleBookmarkCheck(${index})" onclick="event.stopPropagation()">
-                    <div class="icon-box">
-                        <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=128" alt="icon">
-                    </div>
-                    <div class="bookmark-content">
-                        <div class="bookmark-title">${bookmark.name}</div>
-                        <div class="bookmark-url">${domain}</div>
-                    </div>
-                    <div class="bookmark-actions">
-                        <button class="edit-btn" onclick="openEditModal(${index})" title="Edit">✎</button>
-                        <button class="delete-btn" onclick="deleteBookmark(${index})" title="Delete">×</button>
-                    </div>
-                `;
-                
-                item.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('delete-btn') && 
-                        !e.target.classList.contains('edit-btn') &&
-                        !e.target.classList.contains('bookmark-checkbox') &&
-                        !item.classList.contains('dragging')) {
-                        window.open(bookmark.url, '_blank');
-                    }
-                });
-
-                item.addEventListener('mouseenter', function(e) {
-                    if (previewEnabled && !item.classList.contains('dragging')) {
-                        showPreview(bookmark, e);
-                    }
-                });
-
-                item.addEventListener('mouseleave', function() {
-                    if (previewEnabled) {
-                        hidePreview();
-                    }
-                });
-
-                item.addEventListener('dragstart', handleDragStart);
-                item.addEventListener('dragend', handleDragEnd);
-                item.addEventListener('dragover', handleDragOver);
-                item.addEventListener('drop', handleDrop);
-                item.addEventListener('dragleave', handleDragLeave);
-
-                bookmarkList.appendChild(item);
-            });
-            updateSearchButton();
-            updateSelectAllCheckbox();
-        }
-
-        preview.addEventListener('touchstart', function(e) {
-            if (e.target === preview || e.target.closest('.preview-close')) {
-                closePreview();
-            }
-        }, { passive: true });
-
-        function handleDragStart(e) {
-            draggedElement = this;
-            draggedIndex = parseInt(this.dataset.index);
-            this.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
-            
-            preview.classList.remove('show');
-        }
-
-        function handleDragEnd(e) {
-            this.classList.remove('dragging');
-            
-            document.querySelectorAll('.bookmark-item').forEach(item => {
-                item.classList.remove('drag-over');
+            checked.forEach((b, i) => {
+                setTimeout(() => {
+                    window.open(b.searchPattern.replace('{query}', encodeURIComponent(query)), '_blank');
+                }, i * 100);
             });
             
-            draggedElement = null;
-            draggedIndex = null;
-        }
-
-        function handleDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            
-            e.dataTransfer.dropEffect = 'move';
-            
-            if (this !== draggedElement) {
-                this.classList.add('drag-over');
-            }
-            
-            return false;
-        }
-
-        function handleDragLeave(e) {
-            this.classList.remove('drag-over');
-        }
-
-        function handleDrop(e) {
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-            
-            if (draggedElement !== this) {
-                const dropIndex = parseInt(this.dataset.index);
-                
-                const draggedBookmark = bookmarks[draggedIndex];
-                bookmarks.splice(draggedIndex, 1);
-                
-                const newIndex = draggedIndex < dropIndex ? dropIndex - 1 : dropIndex;
-                bookmarks.splice(newIndex, 0, draggedBookmark);
-                
-                saveBookmarks();
-                renderBookmarks();
-                performSearch();
-            }
-            
-            return false;
-        }
-
-        function showPreview(bookmark, e) {
-            const domain = new URL(bookmark.url).hostname;
-            clearTimeout(hoverTimeout);
-            
-            hoverTimeout = setTimeout(() => {
-                if (currentPreviewUrl !== bookmark.url) {
-                    previewTitle.textContent = bookmark.name;
-                    previewFavicon.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
-                    
-                    previewLoading.style.display = 'block';
-                    
-                    previewIframe.src = bookmark.url;
-                    currentPreviewUrl = bookmark.url;
-                    
-                    setTimeout(() => {
-                        previewLoading.style.display = 'none';
-                    }, 2000);
-                    
-                    positionPreview(e);
-                }
-                
-                preview.classList.add('show');
-            }, 400);
-        }
-
-        function positionPreview(e) {
-            const previewWidth = 380;
-            const previewHeight = 430;
-            const offsetX = 30;
-            const offsetY = -50;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-
-            let left = e.clientX + offsetX;
-            let top = e.clientY + offsetY;
-
-            if (left + previewWidth > viewportWidth - 10) {
-                left = e.clientX - previewWidth - 20;
-            }
-
-            if (top < 10) top = 10;
-            if (top + previewHeight > viewportHeight - 10) {
-                top = viewportHeight - previewHeight - 10;
-            }
-
-            preview.style.left = left + 'px';
-            preview.style.top = top + 'px';
-        }
-
-        function closePreview() {
-            preview.classList.remove('show');
-            clearTimeout(hoverTimeout);
-        }
-
-        function hidePreview() {
-            clearTimeout(hoverTimeout);
-            setTimeout(() => {
-                if (!preview.matches(':hover')) {
-                    preview.classList.remove('show');
-                }
-            }, 150);
-        }
-
-        function deleteBookmark(index) {
-            if (confirm('Are you sure you want to delete this bookmark?')) {
-                bookmarks.splice(index, 1);
-                saveBookmarks();
-                renderBookmarks();
-                performSearch();
-            }
+            document.getElementById('siteSearchInput').value = '';
         }
 
         function openAddModal() {
-            addModal.classList.add('show');
-            document.getElementById('bookmarkName').focus();
+            document.getElementById('addModal').classList.add('show');
         }
 
         function closeAddModal() {
-            addModal.classList.remove('show');
-            document.getElementById('addForm').reset();
+            document.getElementById('addModal').classList.remove('show');
+            document.getElementById('bookmarkName').value = '';
+            document.getElementById('bookmarkUrl').value = '';
         }
 
         function addBookmark(e) {
             e.preventDefault();
             const name = document.getElementById('bookmarkName').value.trim();
             const url = document.getElementById('bookmarkUrl').value.trim();
-
-            if (!name) {
-                alert('Please enter a bookmark name');
-                document.getElementById('bookmarkName').focus();
-                return;
-            }
-
-            if (!url) {
-                alert('Please enter a URL');
-                document.getElementById('bookmarkUrl').focus();
-                return;
-            }
-
-            if (!validateUrl(url)) {
-                alert('Please enter a valid URL starting with http:// or https://');
-                document.getElementById('bookmarkUrl').focus();
-                return;
-            }
-
-            bookmarks.push({ 
-                name, 
-                url, 
+            
+            bookmarks.push({
+                name,
+                url,
                 searchPattern: url + (url.includes('?') ? '&' : '?') + 's={query}&post_type=product',
-                checked: false 
+                checked: false
             });
+            
             saveBookmarks();
-            renderBookmarks();
+            render();
             closeAddModal();
-            performSearch();
+            showSuccess('Bookmark added!');
         }
 
-        function toggleBookmarkCheck(index) {
-            bookmarks[index].checked = !bookmarks[index].checked;
-            saveBookmarks();
-            updateSearchButton();
-            updateSelectAllCheckbox();
-        }
-
-        function toggleSelectAll() {
-            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-            const checked = selectAllCheckbox.checked;
-            
-            bookmarks.forEach(bookmark => {
-                bookmark.checked = checked;
-            });
-            
-            saveBookmarks();
-            renderBookmarks();
-        }
-
-        function updateSelectAllCheckbox() {
-            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-            const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
-            const allChecked = bookmarks.every(b => b.checked);
-            const someChecked = bookmarks.some(b => b.checked);
-            
-            selectAllCheckbox.checked = allChecked;
-            selectAllCheckbox.indeterminate = someChecked && !allChecked;
-            
-            deleteSelectedBtn.disabled = !someChecked;
-            if (someChecked) {
-                deleteSelectedBtn.classList.add('active');
-            } else {
-                deleteSelectedBtn.classList.remove('active');
-            }
-        }
-
-        function deleteSelected() {
-            const checkedBookmarks = bookmarks.filter(b => b.checked);
-            if (checkedBookmarks.length === 0) return;
-            
-            if (confirm(`Delete ${checkedBookmarks.length} selected bookmark${checkedBookmarks.length > 1 ? 's' : ''}?`)) {
-                bookmarks = bookmarks.filter(b => !b.checked);
-                saveBookmarks();
-                renderBookmarks();
-                performSearch();
-            }
-        }
-
-        function openEditModal(index) {
-            editingIndex = index;
-            const bookmark = bookmarks[index];
-            
-            document.getElementById('editBookmarkName').value = bookmark.name;
-            document.getElementById('editBookmarkUrl').value = bookmark.url;
-            document.getElementById('editSearchPattern').value = bookmark.searchPattern;
-            
-            editModal.classList.add('show');
-            document.getElementById('editBookmarkName').focus();
+        function openEditModal(i) {
+            editingIndex = i;
+            document.getElementById('editName').value = bookmarks[i].name;
+            document.getElementById('editUrl').value = bookmarks[i].url;
+            document.getElementById('editPattern').value = bookmarks[i].searchPattern;
+            document.getElementById('editModal').classList.add('show');
         }
 
         function closeEditModal() {
-            editModal.classList.remove('show');
-            document.getElementById('editForm').reset();
+            document.getElementById('editModal').classList.remove('show');
             editingIndex = null;
         }
 
         function saveEdit(e) {
             e.preventDefault();
-            
             if (editingIndex === null) return;
             
-            const name = document.getElementById('editBookmarkName').value.trim();
-            const url = document.getElementById('editBookmarkUrl').value.trim();
-            const searchPattern = document.getElementById('editSearchPattern').value.trim();
-            
-            if (!name) {
-                alert('Please enter a bookmark name');
-                document.getElementById('editBookmarkName').focus();
-                return;
-            }
-
-            if (!url) {
-                alert('Please enter a URL');
-                document.getElementById('editBookmarkUrl').focus();
-                return;
-            }
-
-            if (!validateUrl(url)) {
-                alert('Please enter a valid URL starting with http:// or https://');
-                document.getElementById('editBookmarkUrl').focus();
-                return;
-            }
-
-            if (!searchPattern) {
-                alert('Please enter a search pattern');
-                document.getElementById('editSearchPattern').focus();
-                return;
-            }
-            
-            bookmarks[editingIndex] = {
-                ...bookmarks[editingIndex],
-                name,
-                url,
-                searchPattern
-            };
+            bookmarks[editingIndex].name = document.getElementById('editName').value.trim();
+            bookmarks[editingIndex].url = document.getElementById('editUrl').value.trim();
+            bookmarks[editingIndex].searchPattern = document.getElementById('editPattern').value.trim();
             
             saveBookmarks();
-            renderBookmarks();
+            render();
             closeEditModal();
-            performSearch();
+            showSuccess('Bookmark updated!');
         }
 
-        function updateSearchButton() {
-            const checkedCount = bookmarks.filter(b => b.checked).length;
-            searchSitesBtn.disabled = checkedCount === 0;
-            searchSitesBtn.textContent = checkedCount > 0 ? `Search ${checkedCount} Site${checkedCount > 1 ? 's' : ''}` : 'Search Sites';
+        function deleteBookmark(i) {
+            if (confirm('Delete this bookmark?')) {
+                bookmarks.splice(i, 1);
+                saveBookmarks();
+                render();
+                showSuccess('Bookmark deleted!');
+            }
         }
 
-        function searchInSites() {
-            const query = siteSearchInput.value.trim();
-            if (!query) {
-                alert('Please enter a search term');
-                siteSearchInput.focus();
-                return;
+        function deleteSelected() {
+            const checked = bookmarks.filter(b => b.checked).length;
+            if (checked === 0) return;
+            
+            if (confirm(`Delete ${checked} bookmark${checked > 1 ? 's' : ''}?`)) {
+                bookmarks = bookmarks.filter(b => !b.checked);
+                saveBookmarks();
+                render();
+                showSuccess(`${checked} deleted!`);
             }
-
-            const checkedBookmarks = bookmarks.filter(b => b.checked);
-            if (checkedBookmarks.length === 0) {
-                alert('Please select at least one site to search');
-                return;
-            }
-
-            checkedBookmarks.forEach((bookmark, index) => {
-                const searchUrl = bookmark.searchPattern.replace('{query}', encodeURIComponent(query));
-                setTimeout(() => {
-                    window.open(searchUrl, '_blank');
-                }, index * 100);
-            });
-
-            siteSearchInput.value = '';
         }
 
-        siteSearchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                searchInSites();
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeToggle').textContent = isDark ? '◑' : '◐';
+            save('darkMode', isDark);
+        }
+
+        function togglePreview() {
+            previewEnabled = !previewEnabled;
+            document.getElementById('previewToggle').classList.toggle('active');
+            if (!previewEnabled) document.getElementById('preview').classList.remove('show');
+            save('previewEnabled', previewEnabled);
+        }
+
+        function showPreview(b, e) {
+            if (!previewEnabled || window.innerWidth < 500) return;
+            
+            clearTimeout(previewTimeout);
+            
+            const preview = document.getElementById('preview');
+            const domain = new URL(b.url).hostname;
+            
+            document.getElementById('previewTitle').textContent = b.name;
+            document.getElementById('previewFavicon').src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+            document.getElementById('previewIframe').src = b.url;
+            
+            const previewWidth = 380;
+            const previewHeight = 450;
+            let left = e.clientX + 30;
+            let top = e.clientY - 50;
+            
+            // Keep preview within viewport
+            if (left + previewWidth > window.innerWidth - 10) {
+                left = e.clientX - previewWidth - 30;
             }
-        });
+            if (top < 10) top = 10;
+            if (top + previewHeight > window.innerHeight - 10) {
+                top = window.innerHeight - previewHeight - 10;
+            }
+            if (left < 10) left = 10;
+            
+            preview.style.left = left + 'px';
+            preview.style.top = top + 'px';
+            preview.classList.add('show');
+        }
 
-        function performSearch() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const items = bookmarkList.querySelectorAll('.bookmark-item');
-            let visibleCount = 0;
+        function showPreviewMobile(b, touch) {
+            console.log('showPreviewMobile called for:', b.name);
+            
+            clearTimeout(previewTimeout);
+            
+            const preview = document.getElementById('preview');
+            const domain = new URL(b.url).hostname;
+            
+            document.getElementById('previewTitle').textContent = b.name;
+            document.getElementById('previewFavicon').src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+            document.getElementById('previewIframe').src = b.url;
+            
+            // Center preview on mobile, or position near touch point
+            const previewWidth = Math.min(380, window.innerWidth - 20);
+            const previewHeight = Math.min(450, window.innerHeight - 100);
+            
+            let left = (window.innerWidth - previewWidth) / 2;
+            let top = Math.max(60, (window.innerHeight - previewHeight) / 2);
+            
+            preview.style.width = previewWidth + 'px';
+            preview.style.height = previewHeight + 'px';
+            preview.style.left = left + 'px';
+            preview.style.top = top + 'px';
+            preview.classList.add('show');
+            
+            console.log('Preview should be visible now');
+            
+            // Add haptic feedback if available
+            if (navigator.vibrate) {
+                console.log('Vibrating...');
+                navigator.vibrate(50);
+            } else {
+                console.log('Vibration not supported');
+            }
+            
+            // Also try newer Vibration API
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(50);
+            }
+        }
 
-            items.forEach(item => {
-                const name = item.dataset.name.toLowerCase();
-                const url = item.querySelector('.bookmark-url').textContent.toLowerCase();
-                
-                if (name.includes(searchTerm) || url.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
+        function hidePreview() {
+            clearTimeout(previewTimeout);
+            previewTimeout = setTimeout(() => {
+                const preview = document.getElementById('preview');
+                if (!preview.dataset.hovering) {
+                    preview.classList.remove('show');
                 }
-            });
-
-            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            }, 200);
         }
 
-        searchInput.addEventListener('input', function() {
-            clearTimeout(searchDebounceTimer);
-            searchDebounceTimer = setTimeout(performSearch, 150);
-        });
-
-        addModal.addEventListener('click', (e) => {
-            if (e.target === addModal) {
-                closeAddModal();
-            }
-        });
-
-        editModal.addEventListener('click', (e) => {
-            if (e.target === editModal) {
-                closeEditModal();
-            }
-        });
-
-        loadPreferences();
-        loadBookmarks();
+        function closePreview() {
+            clearTimeout(previewTimeout);
+            clearTimeout(longPressTimer);
+            const preview = document.getElementById('preview');
+            delete preview.dataset.hovering;
+            preview.classList.remove('show');
+            // Reset size for desktop
+            preview.style.width = '380px';
+            preview.style.height = '450px';
+        }
 
         function testPopups() {
-            const testWindow1 = window.open('about:blank', '_blank');
-            const testWindow2 = window.open('about:blank', '_blank');
+            const w1 = window.open('about:blank', '_blank');
+            const w2 = window.open('about:blank', '_blank');
             
-            const popupsAllowed = testWindow1 && !testWindow1.closed && typeof testWindow1.closed !== 'undefined' &&
-                                  testWindow2 && !testWindow2.closed && typeof testWindow2.closed !== 'undefined';
-            
-            if (popupsAllowed) {
-                setTimeout(() => {
-                    if (testWindow1) testWindow1.close();
-                    if (testWindow2) testWindow2.close();
-                }, 100);
-                
-                popupsEnabled = true;
-                localStorage.setItem('popupsEnabled', 'true');
-                updateEnableButton();
-                
-                const notice = document.getElementById('popupNotice');
-                notice.innerHTML = '<strong>✅ Success!</strong> Multi-search is now enabled. You can search multiple sites at once.';
-                notice.style.background = '#d1fae5';
-                notice.style.borderColor = '#10b981';
-                notice.style.color = '#065f46';
-                notice.classList.add('show');
-                
-                setTimeout(() => {
-                    notice.classList.remove('show');
-                    setTimeout(() => {
-                        notice.innerHTML = '<strong>⚠️ Pop-ups blocked</strong> Please click the address bar icon or browser notification to allow pop-ups for this page, then try again.';
-                        notice.style.background = '#fef3c7';
-                        notice.style.borderColor = '#fbbf24';
-                        notice.style.color = '#92400e';
-                    }, 500);
-                }, 3000);
+            if (w1 && w2) {
+                setTimeout(() => { w1.close(); w2.close(); }, 200);
+                save('popupsEnabled', 'true');
+                document.getElementById('enablePopupsBtn').innerHTML = '✓';
+                showSuccess('Multi-search enabled!');
             } else {
-                if (testWindow1) testWindow1.close();
-                if (testWindow2) testWindow2.close();
-                
-                const notice = document.getElementById('popupNotice');
-                notice.classList.add('show');
-                setTimeout(() => {
-                    notice.classList.remove('show');
-                }, 8000);
-            }
-        }
-
-        function updateEnableButton() {
-            const btn = document.getElementById('enablePopupsBtn');
-            if (popupsEnabled) {
-                btn.textContent = '✓';
-                btn.classList.add('success');
-                btn.onclick = null;
-                btn.style.cursor = 'default';
-                btn.title = 'Multi-Search Enabled';
+                alert('Please allow pop-ups for this site');
             }
         }
 
@@ -2108,120 +856,61 @@
             document.getElementById('exportDropdown').classList.toggle('show');
         }
 
-        window.addEventListener('click', function(e) {
-            if (!e.target.matches('.export-btn')) {
-                const dropdown = document.getElementById('exportDropdown');
-                if (dropdown.classList.contains('show')) {
-                    dropdown.classList.remove('show');
-                }
-            }
-        });
-
         function exportAsHTML() {
-            const html = `<!DOCTYPE NETSCAPE-Bookmark-file-1>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-<TITLE>Bookmarks</TITLE>
-<H1>Bookmarks</H1>
-<DL><p>
-    <DT><H3>Vitamins & Supplements</H3>
-    <DL><p>
-${bookmarks.map(b => `        <DT><A HREF="${b.url}">${b.name}</A>`).join('\n')}
-    </DL><p>
-</DL><p>`;
-            
-            downloadFile(html, 'bookmarks.html', 'text/html');
-            document.getElementById('exportDropdown').classList.remove('show');
-        }
-
-        function exportAsPDF() {
-            const htmlContent = `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Vitamins & Supplements Bookmarks</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 40px; }
-        h1 { color: #111827; margin-bottom: 30px; }
-        .bookmark { margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #e5e7eb; }
-        .name { font-weight: 600; color: #111827; font-size: 16px; }
-        .url { color: #6b7280; font-size: 14px; margin-top: 5px; }
-        @media print {
-            body { padding: 20px; }
-        }
-    </style>
-</head>
-<body>
-    <h1>Vitamins & Supplements Bookmarks</h1>
-    ${bookmarks.map(b => `
-    <div class="bookmark">
-        <div class="name">${b.name}</div>
-        <div class="url">${b.url}</div>
-    </div>`).join('')}
-</body>
-</html>`;
-            
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const printWindow = window.open(url, '_blank');
-            printWindow.addEventListener('load', function() {
-                setTimeout(() => {
-                    printWindow.print();
-                }, 250);
-            });
-            
+            const html = `<!DOCTYPE NETSCAPE-Bookmark-file-1>\n<TITLE>Bookmarks</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n${bookmarks.map(b => `<DT><A HREF="${b.url}">${b.name}</A>`).join('\n')}\n</DL>`;
+            download(html, 'bookmarks.html', 'text/html');
             document.getElementById('exportDropdown').classList.remove('show');
         }
 
         function exportAsCSV() {
             const csv = 'Name,URL\n' + bookmarks.map(b => `"${b.name}","${b.url}"`).join('\n');
-            downloadFile(csv, 'bookmarks.csv', 'text/csv');
+            download(csv, 'bookmarks.csv', 'text/csv');
             document.getElementById('exportDropdown').classList.remove('show');
         }
 
-        function importHTML(event) {
-            const file = event.target.files[0];
+        function importHTML(e) {
+            const file = e.target.files[0];
             if (!file) return;
             
             const reader = new FileReader();
-            reader.onload = function(e) {
-                const content = e.target.result;
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(content, 'text/html');
+            reader.onload = (ev) => {
+                const doc = new DOMParser().parseFromString(ev.target.result, 'text/html');
                 const links = doc.querySelectorAll('a[href]');
+                const imported = [];
                 
-                const importedBookmarks = [];
                 links.forEach(link => {
                     const name = link.textContent.trim();
                     const url = link.getAttribute('href');
                     if (name && url && url.startsWith('http')) {
-                        importedBookmarks.push({ name, url });
+                        imported.push({
+                            name: name.substring(0, 100),
+                            url,
+                            searchPattern: url + (url.includes('?') ? '&' : '?') + 's={query}&post_type=product',
+                            checked: false
+                        });
                     }
                 });
                 
-                if (importedBookmarks.length > 0) {
-                    if (confirm(`Import ${importedBookmarks.length} bookmarks? This will add them to your existing bookmarks.`)) {
-                        bookmarks = [...bookmarks, ...importedBookmarks];
-                        saveBookmarks();
-                        renderBookmarks();
-                        performSearch();
-                    }
+                if (imported.length > 0 && confirm(`Import ${imported.length} bookmarks?`)) {
+                    bookmarks = [...bookmarks, ...imported];
+                    saveBookmarks();
+                    render();
+                    showSuccess(`${imported.length} bookmarks imported!`);
                 }
             };
             reader.readAsText(file);
-            
-            event.target.value = '';
+            e.target.value = '';
             document.getElementById('exportDropdown').classList.remove('show');
         }
 
-        function importCSV(event) {
-            const file = event.target.files[0];
+        function importCSV(e) {
+            const file = e.target.files[0];
             if (!file) return;
             
             const reader = new FileReader();
-            reader.onload = function(e) {
-                const content = e.target.result;
-                const lines = content.split('\n');
-                const importedBookmarks = [];
+            reader.onload = (ev) => {
+                const lines = ev.target.result.split('\n');
+                const imported = [];
                 
                 for (let i = 1; i < lines.length; i++) {
                     const line = lines[i].trim();
@@ -2233,39 +922,151 @@ ${bookmarks.map(b => `        <DT><A HREF="${b.url}">${b.name}</A>`).join('\n')}
                         const url = matches[1].replace(/^"|"$/g, '').trim();
                         
                         if (name && url && url.startsWith('http')) {
-                            importedBookmarks.push({ name, url });
+                            imported.push({
+                                name: name.substring(0, 100),
+                                url,
+                                searchPattern: url + (url.includes('?') ? '&' : '?') + 's={query}&post_type=product',
+                                checked: false
+                            });
                         }
                     }
                 }
                 
-                if (importedBookmarks.length > 0) {
-                    if (confirm(`Import ${importedBookmarks.length} bookmarks? This will add them to your existing bookmarks.`)) {
-                        bookmarks = [...bookmarks, ...importedBookmarks];
-                        saveBookmarks();
-                        renderBookmarks();
-                        performSearch();
-                    }
-                } else {
-                    alert('No valid bookmarks found in the CSV file. Make sure it has "Name" and "URL" columns.');
+                if (imported.length > 0 && confirm(`Import ${imported.length} bookmarks?`)) {
+                    bookmarks = [...bookmarks, ...imported];
+                    saveBookmarks();
+                    render();
+                    showSuccess(`${imported.length} bookmarks imported!`);
                 }
             };
             reader.readAsText(file);
-            
-            event.target.value = '';
+            e.target.value = '';
             document.getElementById('exportDropdown').classList.remove('show');
         }
 
-        function downloadFile(content, filename, type) {
-            const blob = new Blob([content], { type: type });
+        function download(content, filename, type) {
+            const blob = new Blob([content], { type });
             const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
             URL.revokeObjectURL(url);
         }
+
+        function showSuccess(msg) {
+            const el = document.getElementById('successMsg');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+
+        // Search filter
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const term = this.value.toLowerCase();
+            document.querySelectorAll('.bookmark-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'flex' : 'none';
+            });
+        });
+
+        // Close modals on backdrop click
+        document.getElementById('addModal').onclick = (e) => {
+            if (e.target.id === 'addModal') closeAddModal();
+        };
+        
+        document.getElementById('editModal').onclick = (e) => {
+            if (e.target.id === 'editModal') closeEditModal();
+        };
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.getElementById('exportDropdown').classList.remove('show');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePreview();
+                closeAddModal();
+                closeEditModal();
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('siteSearchInput').focus();
+            }
+        });
+
+        // Preview hover persistence
+        document.getElementById('preview').onmouseenter = () => {
+            clearTimeout(previewTimeout);
+            document.getElementById('preview').dataset.hovering = 'true';
+        };
+        
+        document.getElementById('preview').onmouseleave = () => {
+            delete document.getElementById('preview').dataset.hovering;
+            previewTimeout = setTimeout(() => {
+                document.getElementById('preview').classList.remove('show');
+            }, 200);
+        };
+
+        // Mobile: tap outside preview to close
+        document.getElementById('preview').ontouchstart = (e) => {
+            e.stopPropagation();
+        };
+
+        document.addEventListener('touchstart', (e) => {
+            const preview = document.getElementById('preview');
+            if (preview.classList.contains('show') && !preview.contains(e.target)) {
+                closePreview();
+            }
+        });
+
+        // Initialize
+        function init() {
+            const darkMode = load('darkMode') === 'true';
+            const savedCheckboxes = load('checkboxesVisible');
+            const savedPreview = load('previewEnabled');
+            const savedPopups = load('popupsEnabled') === 'true';
+            
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggle').textContent = '◑';
+            }
+            
+            if (savedCheckboxes === 'false') {
+                checkboxesVisible = false;
+                document.getElementById('toggleCheckboxes').textContent = '☐';
+                document.getElementById('toggleCheckboxes').classList.remove('active');
+                document.getElementById('selectAll').classList.add('hidden');
+            }
+            
+            if (savedPreview === 'false') {
+                previewEnabled = false;
+                document.getElementById('previewToggle').classList.remove('active');
+            }
+            
+            if (savedPopups) {
+                document.getElementById('enablePopupsBtn').innerHTML = '✓';
+            }
+            
+            loadBookmarks();
+            
+            console.log('%c💊 Vitamins & Supplements Manager', 'font-size: 16px; font-weight: bold; color: #10b981;');
+            console.log('%cVersion 3.0 - All Features Working', 'font-size: 12px; color: #6b7280;');
+        }
+
+        init();
     </script>
 </body>
 </html>
